@@ -1,3 +1,4 @@
+import os
 from flask import Flask,render_template,redirect,url_for,flash
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
@@ -20,7 +21,7 @@ login_manager_object=LoginManager()
 class Base(DeclarativeBase):
     pass
 
-flask_object.config['SQLALCHEMY_DATABASE_URI']='sqlite:///posts.db'
+flask_object.config['SQLALCHEMY_DATABASE_URI']=os.environ.get("DB_URI",'sqlite:///posts.db')
 db=SQLAlchemy(model_class=Base)
 db.init_app(flask_object)
 login_manager_object.init_app(flask_object)
